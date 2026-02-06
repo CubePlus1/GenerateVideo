@@ -1,0 +1,8 @@
+{
+  "active": true,
+  "started_at": "2026-02-06T19:57:11.068Z",
+  "original_prompt": "/oh-my-claudecode:autopilot 模仿书写一个新文件，文生视频\ncurl -X POST \"http://localhost:8000/v1/chat/completions\" \\\n  -H \"Authorization: Bearer han1234\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"model\": \"veo_3_1_t2v_fast_landscape\",\n    \"messages\": [\n      {\n        \"role\": \"user\",\n        \"content\": \"一只小猫在草地上追逐蝴蝶\"\n      }\n    ],\n    \"stream\": true\n  }'关于文生视频以及支持1-2张图片首尾帧模型 (I2V - Image to Video)\n📸 支持1-2张图片：1张作为首帧，2张作为首尾帧\n\n💡 自动适配：系统会根据图片数量自动选择对应的 model_key\n\n单帧模式（1张图）：使用首帧生成视频\n双帧模式（2张图）：使用首帧+尾帧生成过渡视频，加入服务器前端选择模型功能，具体模型参照D:\\0code\\0toys\\GenerateVideo\\output\\model.json的图生视频",
+  "session_id": "83aab3db-5e97-4a9b-8c76-3ee592da13e3",
+  "reinforcement_count": 5,
+  "last_checked_at": "2026-02-06T20:23:20.346Z"
+}

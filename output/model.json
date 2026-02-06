@@ -1,0 +1,469 @@
+{
+  "server_info": {
+    "provider": "flow2api",
+    "endpoint": "http://127.0.0.1:58778/v1/chat/completions",
+    "total_models": 68,
+    "categories": ["图像生成", "视频生成 (文本转视频)", "视频生成 (图片转视频)", "视频生成 (参考图转视频)"]
+  },
+
+  "image_generation": {
+    "description": "图像生成模型 - 根据文本提示生成图片",
+    "total": 19,
+    "providers": {
+      "gemini_2.5_flash": {
+        "name": "Gemini 2.5 Flash (GEM_PIX)",
+        "models": [
+          {
+            "id": "gemini-2.5-flash-image-landscape",
+            "name": "横向图片",
+            "aspect_ratio": "16:9 或类似"
+          },
+          {
+            "id": "gemini-2.5-flash-image-portrait",
+            "name": "竖向图片",
+            "aspect_ratio": "9:16 或类似"
+          }
+        ]
+      },
+      "gemini_3.0_pro": {
+        "name": "Gemini 3.0 Pro (GEM_PIX_2)",
+        "quality": "高质量版本",
+        "models": [
+          {
+            "id": "gemini-3.0-pro-image-landscape",
+            "name": "横向图片",
+            "resolution": "标准分辨率"
+          },
+          {
+            "id": "gemini-3.0-pro-image-portrait",
+            "name": "竖向图片",
+            "resolution": "标准分辨率"
+          },
+          {
+            "id": "gemini-3.0-pro-image-square",
+            "name": "正方形图片",
+            "aspect_ratio": "1:1"
+          },
+          {
+            "id": "gemini-3.0-pro-image-four-three",
+            "name": "4:3 比例图片"
+          },
+          {
+            "id": "gemini-3.0-pro-image-three-four",
+            "name": "3:4 比例图片"
+          },
+          {
+            "id": "gemini-3.0-pro-image-landscape-2k",
+            "name": "横向图片 2K",
+            "resolution": "2K (约 2560x1440)"
+          },
+          {
+            "id": "gemini-3.0-pro-image-portrait-2k",
+            "name": "竖向图片 2K",
+            "resolution": "2K"
+          },
+          {
+            "id": "gemini-3.0-pro-image-square-2k",
+            "name": "正方形图片 2K",
+            "resolution": "2K"
+          },
+          {
+            "id": "gemini-3.0-pro-image-four-three-2k",
+            "name": "4:3 比例图片 2K",
+            "resolution": "2K"
+          },
+          {
+            "id": "gemini-3.0-pro-image-three-four-2k",
+            "name": "3:4 比例图片 2K",
+            "resolution": "2K"
+          },
+          {
+            "id": "gemini-3.0-pro-image-landscape-4k",
+            "name": "横向图片 4K",
+            "resolution": "4K (约 3840x2160)"
+          },
+          {
+            "id": "gemini-3.0-pro-image-portrait-4k",
+            "name": "竖向图片 4K",
+            "resolution": "4K"
+          },
+          {
+            "id": "gemini-3.0-pro-image-square-4k",
+            "name": "正方形图片 4K",
+            "resolution": "4K"
+          },
+          {
+            "id": "gemini-3.0-pro-image-four-three-4k",
+            "name": "4:3 比例图片 4K",
+            "resolution": "4K"
+          },
+          {
+            "id": "gemini-3.0-pro-image-three-four-4k",
+            "name": "3:4 比例图片 4K",
+            "resolution": "4K"
+          }
+        ]
+      },
+      "imagen": {
+        "name": "Imagen 4.0 (IMAGEN_3_5)",
+        "models": [
+          {
+            "id": "imagen-4.0-generate-preview-landscape",
+            "name": "横向图片预览"
+          },
+          {
+            "id": "imagen-4.0-generate-preview-portrait",
+            "name": "竖向图片预览"
+          }
+        ]
+      }
+    }
+  },
+
+  "video_generation_text_to_video": {
+    "description": "文本转视频 (T2V) - 根据文本描述生成视频",
+    "total": 22,
+    "veo_versions": {
+      "veo_3.1": {
+        "name": "Veo 3.1 (最新版本)",
+        "models": [
+          {
+            "id": "veo_3_1_t2v_fast_portrait",
+            "name": "竖屏快速版",
+            "orientation": "竖屏 (9:16)",
+            "speed": "快速"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_landscape",
+            "name": "横屏快速版",
+            "orientation": "横屏 (16:9)",
+            "speed": "快速",
+            "recommended": true
+          },
+          {
+            "id": "veo_3_1_t2v_fast_portrait_ultra",
+            "name": "竖屏超快版",
+            "speed": "超快",
+            "quality": "标准"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_ultra",
+            "name": "横屏超快版",
+            "speed": "超快",
+            "quality": "标准"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_portrait_ultra_relaxed",
+            "name": "竖屏超快放松版",
+            "speed": "超快",
+            "quality": "降低质量以提升速度"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_ultra_relaxed",
+            "name": "横屏超快放松版",
+            "speed": "超快",
+            "quality": "降低质量以提升速度"
+          },
+          {
+            "id": "veo_3_1_t2v_portrait",
+            "name": "竖屏标准版",
+            "speed": "标准",
+            "quality": "高质量"
+          },
+          {
+            "id": "veo_3_1_t2v_landscape",
+            "name": "横屏标准版",
+            "speed": "标准",
+            "quality": "高质量"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_portrait_4k",
+            "name": "竖屏快速 4K",
+            "resolution": "4K"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_4k",
+            "name": "横屏快速 4K",
+            "resolution": "4K"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_portrait_ultra_4k",
+            "name": "竖屏超快 4K",
+            "resolution": "4K"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_ultra_4k",
+            "name": "横屏超快 4K",
+            "resolution": "4K"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_portrait_1080p",
+            "name": "竖屏快速 1080P",
+            "resolution": "1080P"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_1080p",
+            "name": "横屏快速 1080P",
+            "resolution": "1080P"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_portrait_ultra_1080p",
+            "name": "竖屏超快 1080P",
+            "resolution": "1080P"
+          },
+          {
+            "id": "veo_3_1_t2v_fast_ultra_1080p",
+            "name": "横屏超快 1080P",
+            "resolution": "1080P"
+          }
+        ]
+      },
+      "veo_2.1": {
+        "name": "Veo 2.1",
+        "models": [
+          {
+            "id": "veo_2_1_fast_d_15_t2v_portrait",
+            "name": "竖屏快速版",
+            "duration": "15秒"
+          },
+          {
+            "id": "veo_2_1_fast_d_15_t2v_landscape",
+            "name": "横屏快速版",
+            "duration": "15秒"
+          }
+        ]
+      },
+      "veo_2.0": {
+        "name": "Veo 2.0 (旧版本)",
+        "models": [
+          {
+            "id": "veo_2_0_t2v_portrait",
+            "name": "竖屏版"
+          },
+          {
+            "id": "veo_2_0_t2v_landscape",
+            "name": "横屏版"
+          }
+        ]
+      }
+    }
+  },
+
+  "video_generation_image_to_video": {
+    "description": "图片转视频 (I2V) - 从单张图片生成视频",
+    "total": 16,
+    "veo_versions": {
+      "veo_3.1": {
+        "name": "Veo 3.1",
+        "models": [
+          {
+            "id": "veo_3_1_i2v_s_fast_portrait_fl",
+            "name": "竖屏快速首尾帧版",
+            "features": ["首尾帧控制"],
+            "orientation": "竖屏"
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_fl",
+            "name": "横屏快速首尾帧版 ⭐",
+            "features": ["首尾帧控制"],
+            "orientation": "横屏",
+            "recommended": true,
+            "note": "这就是您需要的模型！支持两张图片首尾帧过渡"
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_portrait_ultra_fl",
+            "name": "竖屏超快首尾帧版",
+            "features": ["首尾帧控制"],
+            "speed": "超快"
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_ultra_fl",
+            "name": "横屏超快首尾帧版",
+            "features": ["首尾帧控制"],
+            "speed": "超快"
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_portrait_ultra_relaxed",
+            "name": "竖屏超快放松版",
+            "speed": "超快",
+            "quality": "降低"
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_ultra_relaxed",
+            "name": "横屏超快放松版",
+            "speed": "超快",
+            "quality": "降低"
+          },
+          {
+            "id": "veo_3_1_i2v_s_portrait",
+            "name": "竖屏标准版",
+            "quality": "高质量"
+          },
+          {
+            "id": "veo_3_1_i2v_s_landscape",
+            "name": "横屏标准版",
+            "quality": "高质量"
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_portrait_ultra_fl_4k",
+            "name": "竖屏超快首尾帧 4K",
+            "resolution": "4K",
+            "features": ["首尾帧控制"]
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_ultra_fl_4k",
+            "name": "横屏超快首尾帧 4K",
+            "resolution": "4K",
+            "features": ["首尾帧控制"]
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_portrait_ultra_fl_1080p",
+            "name": "竖屏超快首尾帧 1080P",
+            "resolution": "1080P",
+            "features": ["首尾帧控制"]
+          },
+          {
+            "id": "veo_3_1_i2v_s_fast_ultra_fl_1080p",
+            "name": "横屏超快首尾帧 1080P",
+            "resolution": "1080P",
+            "features": ["首尾帧控制"]
+          }
+        ]
+      },
+      "veo_2.1": {
+        "name": "Veo 2.1",
+        "models": [
+          {
+            "id": "veo_2_1_fast_d_15_i2v_portrait",
+            "name": "竖屏快速版"
+          },
+          {
+            "id": "veo_2_1_fast_d_15_i2v_landscape",
+            "name": "横屏快速版"
+          }
+        ]
+      },
+      "veo_2.0": {
+        "name": "Veo 2.0",
+        "models": [
+          {
+            "id": "veo_2_0_i2v_portrait",
+            "name": "竖屏版"
+          },
+          {
+            "id": "veo_2_0_i2v_landscape",
+            "name": "横屏版"
+          }
+        ]
+      }
+    }
+  },
+
+  "video_generation_reference_to_video": {
+    "description": "参考图转视频 (R2V) - 使用参考图片生成视频",
+    "total": 11,
+    "models": [
+      {
+        "id": "veo_3_1_r2v_fast_portrait",
+        "name": "竖屏快速版"
+      },
+      {
+        "id": "veo_3_1_r2v_fast",
+        "name": "横屏快速版"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_portrait_ultra",
+        "name": "竖屏超快版"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_ultra",
+        "name": "横屏超快版"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_portrait_ultra_relaxed",
+        "name": "竖屏超快放松版"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_ultra_relaxed",
+        "name": "横屏超快放松版"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_portrait_ultra_4k",
+        "name": "竖屏超快 4K"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_ultra_4k",
+        "name": "横屏超快 4K"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_portrait_ultra_1080p",
+        "name": "竖屏超快 1080P"
+      },
+      {
+        "id": "veo_3_1_r2v_fast_ultra_1080p",
+        "name": "横屏超快 1080P"
+      }
+    ]
+  },
+
+  "recommended_for_your_use_case": {
+    "requirement": "两张图片首尾帧过渡生成视频",
+    "best_choice": {
+      "model_id": "veo_3_1_i2v_s_fast_fl",
+      "chinese_name": "Veo 3.1 图片转视频 首尾帧快速版 (横屏)",
+      "reason": "专门支持首尾帧控制，可以指定开始和结束图片",
+      "orientation": "横屏 16:9",
+      "speed": "快速生成",
+      "update_config": "将 src/config.py 的 MODEL_NAME 改为: veo_3_1_i2v_s_fast_fl"
+    },
+    "alternatives": [
+      {
+        "model_id": "veo_3_1_i2v_s_fast_portrait_fl",
+        "name": "竖屏版本",
+        "orientation": "竖屏 9:16"
+      },
+      {
+        "model_id": "veo_3_1_i2v_s_fast_ultra_fl_4k",
+        "name": "4K 高清版本",
+        "resolution": "4K",
+        "note": "质量更高但生成时间更长"
+      },
+      {
+        "model_id": "veo_3_1_i2v_s_fast_ultra_fl_1080p",
+        "name": "1080P 版本",
+        "resolution": "1080P"
+      }
+    ]
+  },
+
+  "quick_reference": {
+    "naming_convention": {
+      "t2v": "文本转视频 (Text to Video)",
+      "i2v": "图片转视频 (Image to Video)",
+      "r2v": "参考图转视频 (Reference to Video)",
+      "fl": "首尾帧 (First-Last frame)",
+      "fast": "快速版",
+      "ultra": "超快版",
+      "relaxed": "放松版 (降低质量以提升速度)",
+      "portrait": "竖屏",
+      "landscape": "横屏"
+    },
+    "how_to_choose": {
+      "文本生成视频": "使用 t2v 模型",
+      "单张图片生成视频": "使用 i2v 模型 (不带 fl)",
+      "两张图片首尾帧过渡": "使用 i2v 模型 (带 fl)",
+      "参考图风格生成": "使用 r2v 模型",
+      "横屏视频": "选择 landscape 或不带 portrait 的模型",
+      "竖屏视频": "选择 portrait 模型",
+      "高清视频": "选择 4k 或 1080p 模型",
+      "快速生成": "选择 fast 或 ultra 模型"
+    }
+  },
+
+  "next_steps": {
+    "1": "更新配置文件: src/config.py",
+    "2": "修改 MODEL_NAME 为: veo_3_1_i2v_s_fast_fl",
+    "3": "运行脚本测试: python generate_video.py -img1 图1.jpg -img2 图2.jpg -p prompt.txt",
+    "4": "查看生成的视频: output/video_*.mp4"
+  }
+}

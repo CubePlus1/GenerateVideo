@@ -12,3 +12,7 @@ venv
 # Configuration files
 src/config.py
 .env
+
+# IDE and tool-specific directories
+.omc/
+.claude/

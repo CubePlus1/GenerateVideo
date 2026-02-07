@@ -1,0 +1,50 @@
+"""Configuration constants for video generation."""
+from pathlib import Path
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+class VideoGenSettings(BaseSettings):
+    """Video generation settings with environment variable support."""
+
+    model_config = SettingsConfigDict(
+        env_file='.env',
+        env_file_encoding='utf-8',
+        case_sensitive=False,
+        extra='ignore'
+    )
+
+    # API Configuration (required from .env)
+    api_endpoint: str = Field(default="http://127.0.0.1:58778/v1/chat/completions")
+    api_token: str = Field(default="")  # Required: Set via .env file or GENVIDEO_API_TOKEN env var
+    model_name: str = Field(default="veo_3_1_i2v_s_fast_fl")
+
+    # Timeouts
+    request_timeout: int = Field(default=300)  # seconds (5 minutes)
+
+    # File Constraints
+    max_image_size: int = Field(default=10485760)  # 10MB in bytes
+    valid_image_formats: list[str] = Field(default=['.jpg', '.jpeg', '.png'])
+
+    # Paths
+    default_output_dir: Path = Field(default=Path('./output/'))
+
+
+# Create settings instance
+settings = VideoGenSettings()
+
+# Validate required configuration
+if not settings.api_token or settings.api_token.strip() == "":
+    raise ValueError(
+        "GENVIDEO_API_TOKEN is not set in .env file. "
+        "Please copy .env.example to .env and configure your API token."
+    )
+
+# Backward compatibility: export as module-level constants
+API_ENDPOINT: str = settings.api_endpoint
+API_TOKEN: str = settings.api_token
+MODEL_NAME: str = settings.model_name
+REQUEST_TIMEOUT: int = settings.request_timeout
+MAX_IMAGE_SIZE: int = settings.max_image_size
+VALID_IMAGE_FORMATS: list[str] = settings.valid_image_formats
+DEFAULT_OUTPUT_DIR: Path = settings.default_output_dir

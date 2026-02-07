@@ -1,323 +1,178 @@
-# GenerateVideo
+# GenVideo - AI Video Generation CLI
 
-A Python CLI tool for generating videos from two images using AI-powered video generation.
+统一的视频生成命令行工具，支持文本生成视频 (T2V) 和图片生成视频 (I2V)。
 
-## Overview
+## ✨ 功能特性
 
-GenerateVideo is a command-line utility that transforms two static images into a smooth video transition using AI. The tool features robust error handling, real-time progress tracking, and automatic retry mechanisms for reliable video generation.
+- **文本生成视频 (T2V)** - 从文本描述生成视频
+- **图片生成视频 (I2V)** - 从 1-2 张图片生成视频
+  - 单张图片：生成动态视频
+  - 双张图片：首尾帧过渡效果
+- **智能模型选择** - 根据输入自动选择最佳模型
+- **68+ 模型支持** - 支持 Google Veo 3.1 系列模型
+- **流式下载** - 实时进度显示
 
-### Key Features
+## 📦 安装
 
-- **Base64 Image Encoding**: Automatic image preprocessing and encoding
-- **Streaming API**: Real-time progress updates during video generation
-- **Rich Progress Bars**: Visual feedback with detailed status information
-- **Comprehensive Error Handling**: Clear error messages and recovery guidance
-- **Flexible Configuration**: Customizable output paths and API settings
+### 环境要求
+- Python 3.10+
+- Windows / Linux / macOS
 
-## Requirements
-
-- **Python**: 3.10 or higher
-- **Dependencies**:
-  - `httpx`: Async HTTP client for API communication
-  - `rich`: Terminal formatting and progress bars
-  - `pytest`: Testing framework
-  - `black`: Code formatting
-
-## Installation
-
-### Step 1: Navigate to Project
+### 安装步骤
 
 ```bash
-cd D:\0code\0toys\GenerateVideo
-```
+# 克隆项目
+git clone https://github.com/yourusername/GenerateVideo.git
+cd GenerateVideo
 
-### Step 2: Create Virtual Environment
-
-```bash
-# Windows
+# 创建虚拟环境
 python -m venv venv
 
-# Linux/macOS
-python3 -m venv venv
-```
-
-### Step 3: Activate Virtual Environment
-
-```bash
-# Windows
+# 激活虚拟环境 (Windows)
 venv\Scripts\activate
 
-# Linux/macOS
+# 激活虚拟环境 (Linux/macOS)
 source venv/bin/activate
+
+# 安装依赖
+pip install -e .
 ```
 
-### Step 4: Install Dependencies
+### 配置
+
+复制配置模板并填写您的 API 信息：
 
 ```bash
-# Recommended: Use uv for faster installation
-uv pip install -r requirements.txt
-
-# Alternative: Standard pip
-pip install -r requirements.txt
+cp .env.example .env
 ```
 
-## Usage
+编辑 `.env` 文件：
+```bash
+GENVIDEO_API_ENDPOINT=http://your-api-server/v1/chat/completions
+GENVIDEO_API_TOKEN=your_api_token
+```
 
-### Basic Command
+## 🚀 使用方法
+
+### 文本生成视频 (T2V)
 
 ```bash
-python generate_video.py --image1 path/to/first.jpg --image2 path/to/second.jpg --prompt prompt.txt
+# 基础用法
+genvideo t2v -p "一只小猫在草地上追逐蝴蝶"
+
+# 从文件读取提示词
+genvideo t2v -p prompt.txt
+
+# 指定模型
+genvideo t2v -p "描述" -m veo_3_1_t2v_fast_landscape
+
+# 指定输出目录
+genvideo t2v -p "描述" -o ./videos/
 ```
 
-### Short Form Arguments
+### 图片生成视频 (I2V)
 
 ```bash
-python generate_video.py -img1 first.jpg -img2 second.jpg -p prompt.txt
+# 单张图片生成视频
+genvideo i2v -i image.jpg -p "图片动起来"
+
+# 双张图片（首尾帧过渡）
+genvideo i2v -i start.jpg -i end.jpg -p "从第一张过渡到第二张"
+
+# 指定模型
+genvideo i2v -i img.jpg -p "描述" -m veo_3_1_i2v_s_fast_fl
 ```
 
-### Custom Output Directory
+### 查看可用模型
 
 ```bash
-python generate_video.py -img1 first.jpg -img2 second.jpg -p prompt.txt -o ./my_videos/
+# 列出所有模型
+genvideo models
+
+# 筛选 I2V 模型
+genvideo models --filter i2v
+
+# JSON 格式输出
+genvideo models --format json
 ```
 
-## Command-Line Arguments
+## 📋 命令参考
 
-| Argument | Short Form | Required | Description |
-|----------|------------|----------|-------------|
-| `--image1` | `-img1` | ✅ | Path to first image (JPEG/PNG, max 10MB) |
-| `--image2` | `-img2` | ✅ | Path to second image (JPEG/PNG, max 10MB) |
-| `--prompt` | `-p` | ✅ | Path to text file containing generation prompt |
-| `--output` | `-o` | ❌ | Output directory (default: `./output/`) |
+### `genvideo t2v` - 文本生成视频
 
-### Image Requirements
+| 参数 | 简写 | 必需 | 说明 |
+|------|------|------|------|
+| `--prompt` | `-p` | ✓ | 文本提示词或 .txt 文件路径 |
+| `--model` | `-m` | ✗ | 模型 ID（默认自动选择） |
+| `--output` | `-o` | ✗ | 输出目录（默认 ./output/） |
 
-- **Supported Formats**: JPEG, PNG
-- **Maximum Size**: 10MB per image
-- **Recommended Resolution**: 512x512 to 1024x1024 pixels
+### `genvideo i2v` - 图片生成视频
 
-## Output
+| 参数 | 简写 | 必需 | 说明 |
+|------|------|------|------|
+| `--image` | `-i` | ✓ | 输入图片（1-2张） |
+| `--prompt` | `-p` | ✓ | 文本提示词 |
+| `--model` | `-m` | ✗ | 模型 ID（默认自动选择） |
+| `--output` | `-o` | ✗ | 输出目录 |
 
-### File Naming Convention
+### `genvideo models` - 模型列表
 
-Generated videos follow this naming pattern:
+| 参数 | 说明 |
+|------|------|
+| `--filter` | 按类别筛选：t2v, i2v, r2v |
+| `--format` | 输出格式：table, json |
 
-```
-video_YYYYMMDD_HHMMSS_<uuid>.mp4
-```
+## 🎯 自动模型选择
 
-**Example**: `video_20260207_143052_a3f2b1c4.mp4`
+| 模式 | 图片数 | 自动选择模型 |
+|------|--------|-------------|
+| T2V | 0 | `veo_3_1_t2v_fast_landscape` |
+| I2V | 1 | `veo_3_1_i2v_s_landscape` |
+| I2V | 2 | `veo_3_1_i2v_s_fast_fl` ⭐ |
 
-### Default Location
-
-Videos are saved to `./output/` unless specified otherwise with the `-o` flag.
-
-## Exit Codes
-
-| Code | Meaning | Description |
-|------|---------|-------------|
-| `0` | Success | Video generated successfully |
-| `1` | Invalid Input | Missing files, wrong format, or file too large |
-| `2` | API Error | Server returned 4xx/5xx error response |
-| `3` | Network Error | Connection timeout or server unreachable |
-| `4` | Save Error | Disk full, permission denied, or I/O error |
-
-## Examples
-
-### Using Example Files
-
-```bash
-python generate_video.py \
-  -img1 examples/sample_images/test1.jpg \
-  -img2 examples/sample_images/test2.jpg \
-  -p examples/sample_prompt.txt
-```
-
-### Specifying Custom Output
-
-```bash
-python generate_video.py \
-  -img1 photos/sunrise.jpg \
-  -img2 photos/sunset.jpg \
-  -p prompts/day_transition.txt \
-  -o ./generated_videos/
-```
-
-### Batch Processing (Windows)
-
-```batch
-@echo off
-for %%i in (image_pairs\*.jpg) do (
-  python generate_video.py -img1 %%i -img2 image_pairs\next_%%i -p prompt.txt
-)
-```
-
-## Troubleshooting
-
-### Common Errors and Solutions
-
-#### "Image file too large"
-
-**Problem**: One or both images exceed the 10MB limit.
-
-**Solution**: Resize or compress images before processing.
-
-```bash
-# Example using ImageMagick
-magick convert large_image.jpg -resize 1024x1024 -quality 85 optimized_image.jpg
-```
-
-#### "Network Error"
-
-**Problem**: Cannot connect to API server.
-
-**Solution**:
-1. Verify API server is running at `http://localhost:8000`
-2. Check network connectivity
-3. Review firewall settings
-
-```bash
-# Test API connectivity
-curl http://localhost:8000/health
-```
-
-#### "API Error: 401 Unauthorized"
-
-**Problem**: Invalid or missing API authentication token.
-
-**Solution**: Update your API token in `src/config.py`:
-
-```python
-# src/config.py
-API_TOKEN = "your-valid-token-here"
-```
-
-#### "Permission denied" (Save Error)
-
-**Problem**: No write permissions for output directory.
-
-**Solution**:
-- Check directory permissions
-- Run with appropriate privileges
-- Ensure output directory exists and is writable
-
-```bash
-# Windows: Check permissions
-icacls output
-
-# Create output directory
-mkdir output
-```
-
-#### "Invalid image format"
-
-**Problem**: Image file is not JPEG or PNG.
-
-**Solution**: Convert images to supported format:
-
-```bash
-# Using ImageMagick
-magick convert image.bmp image.jpg
-```
-
-## Configuration
-
-### API Settings
-
-Edit `src/config.py` to customize:
-
-```python
-# API Configuration
-API_ENDPOINT = "http://localhost:8000/generate"
-API_TOKEN = "your-api-token"
-REQUEST_TIMEOUT = 300  # seconds (5 minutes)
-
-# Output Settings
-DEFAULT_OUTPUT_DIR = "./output/"
-VIDEO_FILENAME_PATTERN = "video_{timestamp}_{uuid}.mp4"
-```
-
-### Timeout Configuration
-
-For longer video generation tasks, increase the timeout:
-
-```python
-# src/config.py
-REQUEST_TIMEOUT = 600  # 10 minutes
-```
-
-## Development
-
-### Running Tests
-
-```bash
-# Activate virtual environment first
-venv\Scripts\activate  # Windows
-source venv/bin/activate  # Linux/macOS
-
-# Run all tests
-pytest tests/
-
-# Run with verbose output
-pytest -v tests/
-
-# Run specific test file
-pytest tests/test_image_processing.py
-```
-
-### Code Formatting
-
-This project uses Black for consistent code formatting:
-
-```bash
-# Format all Python files
-black .
-
-# Check formatting without applying
-black --check .
-```
-
-## Project Structure
+## 📁 项目结构
 
 ```
 GenerateVideo/
-├── generate_video.py          # Main CLI entry point
-├── requirements.txt           # Python dependencies
-├── README.md                  # This file
 ├── src/
-│   ├── api_client.py         # API communication logic
-│   ├── image_processing.py   # Image encoding utilities
-│   ├── config.py             # Configuration settings
-│   └── validators.py         # Input validation
-├── tests/
-│   ├── test_api_client.py
-│   ├── test_image_processing.py
-│   └── test_validators.py
-├── examples/
-│   ├── sample_images/
-│   │   ├── test1.jpg
-│   │   └── test2.jpg
-│   └── sample_prompt.txt
-└── output/                    # Generated videos (created automatically)
+│   ├── cli/              # CLI 命令
+│   │   ├── main.py       # 入口点
+│   │   ├── t2v.py        # 文本生成视频
+│   │   ├── i2v.py        # 图片生成视频
+│   │   └── models.py     # 模型列表
+│   ├── models/           # 模型管理
+│   │   ├── catalog.py    # 模型目录
+│   │   └── selector.py   # 自动选择
+│   ├── api_client.py     # API 通信
+│   ├── encoder.py        # 图片编码
+│   ├── video_saver.py    # 视频保存
+│   ├── config.py         # 配置管理
+│   └── errors.py         # 异常定义
+├── tests/                # 测试文件
+├── output/               # 视频输出（已忽略）
+├── .env.example          # 配置模板
+├── pyproject.toml        # 项目配置
+└── README.md
 ```
 
-## License
+## 🔧 开发
 
-MIT License - See LICENSE file for details
+### 运行测试
 
-## Support
+```bash
+pytest tests/
+```
 
-For issues, questions, or contributions:
-- Open an issue on GitHub
-- Contact: [your-email@example.com]
-- Documentation: [project-docs-url]
+### 代码格式化
 
-## Changelog
+```bash
+black src/
+```
 
-### Version 1.0.0 (2026-02-07)
-- Initial release
-- Two-image video generation
-- Progress tracking with Rich library
-- Comprehensive error handling
-- Base64 image encoding
-- Streaming API support
+## 📄 许可证
+
+MIT License
+
+## 🤝 贡献
+
+欢迎提交 Issue 和 Pull Request！

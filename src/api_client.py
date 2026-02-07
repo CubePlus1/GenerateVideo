@@ -207,8 +207,22 @@ def _parse_sse_stream(response: httpx.Response, total_size: Optional[int]) -> by
 
                     try:
                         data = json.loads(data_str)
-                        # DEBUG: Print ALL SSE events to see structure
-                        logger.info(f"SSE event: {json.dumps(data, ensure_ascii=False)[:500]}")
+
+                        # Check for errors in choices
+                        if "choices" in data and data["choices"]:
+                            choice = data["choices"][0]
+                            if "delta" in choice:
+                                # Check for error messages in reasoning_content
+                                if "reasoning_content" in choice["delta"]:
+                                    error_msg = choice["delta"]["reasoning_content"]
+                                    if "失败" in error_msg or "Error" in error_msg:
+                                        logger.error(f"API Error: {error_msg.strip()}")
+
+                                # Check for video content
+                                if "content" in choice["delta"]:
+                                    content = choice["delta"]["content"]
+                                    if content and not content.startswith("<video"):
+                                        logger.info(f"API message: {content}")
 
                         # Extract video data from various possible locations
                         video_chunk = _extract_video_from_json(data)
@@ -217,7 +231,7 @@ def _parse_sse_stream(response: httpx.Response, total_size: Optional[int]) -> by
                             video_chunks.append(video_chunk)
                             progress.update(task, advance=len(video_chunk))
                         else:
-                            logger.warning(f"✗ No video data found in event. Keys: {list(data.keys())}")
+                            logger.debug(f"No video data in event. Keys: {list(data.keys())}")
                     except json.JSONDecodeError as e:
                         logger.warning(f"Failed to parse SSE JSON: {e}")
                         logger.warning(f"Problematic data: {data_str[:200]}")
